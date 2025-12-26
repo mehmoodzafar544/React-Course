@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Input Text</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      function Input() {
+        const [text, setText] = React.useState("");
+        return (
+          <>
+            <input
+              onChange={(e) => {
+                setText(e.target.value);
+              }}
+              type="text"
+              value={text}
+            />
+
+            <button
+              onClick={() => {
+                setText("");
+              }}
+            >
+              Reset
+            </button>
+            <button
+              onClick={() => {
+                setText("Alice");
+              }}
+            >
+              Example
+            </button>
+            <p>Hello {text}</p>
+          </>
+        );
+      }
+
+      const container = document.querySelector(".js-container");
+      ReactDOM.createRoot(container).render(<Input />);
+    </script>
+  </body>
+</html>
