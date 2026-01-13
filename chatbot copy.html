@@ -12,6 +12,25 @@
         border-radius: 10px;
         font-size: 15px;
       }
+      .send-input {
+        padding: 10px 15px;
+        border-radius: 10px;
+        border-width: 1px;
+        font-size: 15px;
+        flex: 1;
+      }
+      .send-input-container {
+        display: flex;
+      }
+      .app-container {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .chat-message-user {
+        display: flex;
+        justify-content: end;
+      }
     </style>
   </head>
   <body>
@@ -75,7 +94,7 @@
         }
 
         return (
-          <>
+          <div className="send-input-container">
             <input
               placeholder="Send a message to Chatbot"
               size="30"
@@ -85,19 +104,25 @@
                 e.key === "Enter" && sendMessage();
                 e.key === "Escape" && setInputText("");
               }}
+              className="send-input"
             />
             <button className="send-button" onClick={sendMessage}>
               Send
             </button>
-          </>
+          </div>
         );
       }
 
       function ChatMessage({ message, sender }) {
         return (
-          <div>
+          <div
+            className={
+              sender === "user" ? "chat-message-user" : "chat-message-robot"
+            }
+          >
             {sender === "robot" && <img src="robot.png" width="50" />}
-            {message}
+            <div>{message}</div>
+
             {sender === "user" && <img src="user.png" width="50" />}
           </div>
         );
@@ -147,7 +172,7 @@
         // const setChatMessages = array[1];
         const [isLoading, setIsLoading] = React.useState(false);
         return (
-          <>
+          <div className="app-container">
             <ChatInput
               chatMessages={chatMessages}
               setChatMessages={setChatMessages}
@@ -155,7 +180,7 @@
               setIsLoading={setIsLoading}
             />
             <ChatMessages chatMessages={chatMessages} />
-          </>
+          </div>
         );
       }
 
