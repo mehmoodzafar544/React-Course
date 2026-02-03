@@ -168,8 +168,14 @@
         const chatMessagesRef = React.useRef(null);
 
         React.useEffect(() => {
-          console.log(chatMessagesRef.current);
+
+          // anything naming with Elem tells us that this variable is an HTML element
+          const containerElem = chatMessagesRef.current;
+          if (containerElem) {
+          containerElem.scrollTop = containerElem.scrollHeight;
+        }
         }, [chatMessages]);
+        
 
         return (
           <div className="chat-messages-container" ref={chatMessagesRef}>

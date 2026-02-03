@@ -1,47 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Practicing React</title>
+    <title>Practicing Projects</title>
+    <style>
+      .button {
+        background-color: rgb(0, 123, 255);
+        color: white;
+        padding: 10px 14px;
+        border: none;
+        border-radius: 6px;
+        margin-top: 8px;
+        cursor: pointer;
+      }
+      .right-button {
+        margin-left: 6px;
+      }
+
+      .input {
+        margin-bottom: 10px;
+        padding: 10px 18px;
+        border-width: 1px;
+        border-radius: 4px;
+      }
+
+      .title {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 22px;
+      }
+    </style>
   </head>
   <body>
     <div class="js-container"></div>
     <script src="https://unpkg.com/supersimpledev/react.js"></script>
     <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
 
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
-    <script type="text/babel">
-      function Counter({ count, setCount }) {
-        return (
-          <button
-            onClick={() => {
-              console.log("Clicked");
-              setCount(count + 1);
-            }}
-          >
-            Clicked {count} {count === 1 ? "time" : "times"}
-          </button>
-        );
-      }
-      function Reset({setCount}) {
-        return <button onClick={() => {
-          setCount(0);
-        }}>Reset</button>;
-      }
-      function App() {
-        const [count, setCount] = React.useState(0);
-        return (
-          <>
-            <Counter count={count} setCount={setCount} />
-            <Counter count={count} setCount={setCount} />
-            <Reset setCount={setCount} />
-          </>
-        );
-      }
 
-      // The div(js-container) is an empty container, JavaScript selects it, and React takes control of it to render UI inside.
-      // ReactDOM is the library that renders React components into the browser’s DOM
+    <script type="text/babel">
+      function App() {
+        const [time, setTime] = React.useState("");
+        React.useEffect(() => {
+          setInterval(() => {
+            setTime();
+            console.log("run code");
+          }, 1000);
+        }, []);
+
+        return setTime(dayjs().format("HH:mm:ss"));
+      }
+      /*       function  {
+        return <></>;
+      } */
       const container = document.querySelector(".js-container");
       ReactDOM.createRoot(container).render(<App />);
     </script>
