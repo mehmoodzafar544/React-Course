@@ -41,19 +41,32 @@
 
     <script type="text/babel">
       function App() {
-        const [time, setTime] = React.useState("");
+        const [click, setClick] = React.useState(0);
+        const buttonRef = React.useRef(null);
+        function handleClick() {
+          setClick(click + 1);
+        }
+
         React.useEffect(() => {
-          setInterval(() => {
-            setTime();
-            console.log("run code");
-          }, 1000);
+          const buttonElem = buttonRef.current;
+          const handleReset = () => {
+            setInterval(() => {
+              buttonElem.click();
+            }, 1000);
+          };
         }, []);
 
-        return setTime(dayjs().format("HH:mm:ss"));
+        return (
+          <>
+            <button ref={buttonRef} onClick={handleClick}>
+              Clicked {click} times
+            </button>
+            <button onClick={() => setClick(0)}>Reset</button>
+            <button onClick={handleReset}>Auto Click</button>
+          </>
+        );
       }
-      /*       function  {
-        return <></>;
-      } */
+
       const container = document.querySelector(".js-container");
       ReactDOM.createRoot(container).render(<App />);
     </script>
