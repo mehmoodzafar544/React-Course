@@ -42,19 +42,24 @@
     <script type="text/babel">
       function App() {
         const [click, setClick] = React.useState(0);
+        const [autoClicking, setAutoClicking] = React.useState(false);
         const buttonRef = React.useRef(null);
         function handleClick() {
           setClick(click + 1);
         }
 
+        function handleAutoClick() {
+          if (!autoClicking) {
+            setAutoClicking(true);
+          }
+        }
         React.useEffect(() => {
           const buttonElem = buttonRef.current;
-          const handleReset = () => {
-            setInterval(() => {
-              buttonElem.click();
-            }, 1000);
-          };
-        }, []);
+
+          setInterval(() => {
+            buttonElem.click();
+          }, 1000);
+        }, [autoClicking]);
 
         return (
           <>
@@ -62,7 +67,7 @@
               Clicked {click} times
             </button>
             <button onClick={() => setClick(0)}>Reset</button>
-            <button onClick={handleReset}>Auto Click</button>
+            <button onClick={handleAutoClick}>Auto Click</button>
           </>
         );
       }
