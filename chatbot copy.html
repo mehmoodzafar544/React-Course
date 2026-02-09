@@ -63,6 +63,13 @@
         overflow: scroll;
         scrollbar-width: none;
       }
+      .welcome-message {
+        text-align: center;
+      }
+      .loading-gif {
+        height: 40px;
+        margin: -15px;
+      }
     </style>
   </head>
   <body>
@@ -104,7 +111,9 @@
           setChatMessages([
             ...newChatMessages,
             {
-              message: "loading...",
+              message: (
+                <img src="loading-spinner.gif" className="loading-gif" />
+              ),
               sender: "robot",
               id: crypto.randomUUID(),
             },
@@ -165,17 +174,16 @@
       }
 
       function ChatMessages({ chatMessages }) {
-        const chatMessagesRef = React.useRef(null);
+        const chatMessagesRef = useAutoScroll(chatMessages);
+        /*         const chatMessagesRef = React.useRef(null);
 
         React.useEffect(() => {
-
           // anything naming with Elem tells us that this variable is an HTML element
           const containerElem = chatMessagesRef.current;
           if (containerElem) {
-          containerElem.scrollTop = containerElem.scrollHeight;
-        }
-        }, [chatMessages]);
-        
+            containerElem.scrollTop = containerElem.scrollHeight;
+          }
+        }, [chatMessages]); */
 
         return (
           <div className="chat-messages-container" ref={chatMessagesRef}>
@@ -191,10 +199,32 @@
           </div>
         );
       }
+      function WelcomeMessage({ chatMessages }) {
+        if (chatMessages.length === 0) {
+          return (
+            <p className="welcome-message">
+              Welcome to the chatbot project! Send a message using the textbox
+              below.
+            </p>
+          );
+        }
+      }
+      function useAutoScroll(dependencies) {
+        const chatMessagesRef = React.useRef(null);
+
+        React.useEffect(() => {
+          // anything naming with Elem tells us that this variable is an HTML element
+          const containerElem = chatMessagesRef.current;
+          if (containerElem) {
+            containerElem.scrollTop = containerElem.scrollHeight;
+          }
+        }, [dependencies]);
+        return chatMessagesRef;
+      }
 
       function App() {
         const [chatMessages, setChatMessages] = React.useState([
-          {
+          /* {
             message: "hello chatbot",
             sender: "user",
             id: "id1",
@@ -213,7 +243,7 @@
             message: "Today is November 22",
             sender: "robot",
             id: "id4",
-          },
+          }, */
         ]);
         // const [chatMessages, setChatMessages] = array;
         // const chatMessages = array[0];
@@ -221,7 +251,9 @@
         const [isLoading, setIsLoading] = React.useState(false);
         return (
           <div className="app-container">
+            <WelcomeMessage chatMessages={chatMessages} />
             <ChatMessages chatMessages={chatMessages} />
+
             <ChatInput
               chatMessages={chatMessages}
               setChatMessages={setChatMessages}

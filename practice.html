@@ -4,76 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Practicing Projects</title>
-    <style>
-      body {
-
-       margin: 0;
-      }
-      button {
-        background-color: rgb(25, 135, 84);
-        padding: 10px;
-        border: none;
-        color: white;
-      }
-      .button-container {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        height: 100vh;
-        align-items: center;
-        background-color: 222, 222, 222;
-      }
-
-      .input {
-        margin-bottom: 10px;
-        padding: 10px 18px;
-        border-width: 1px;
-        border-radius: 4px;
-      }
-
-      .title {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 22px;
-      }
-    </style>
+    <style></style>
   </head>
   <body>
     <div class="js-container"></div>
     <script src="https://unpkg.com/supersimpledev/react.js"></script>
     <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
-    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
 
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
 
     <script type="text/babel">
       function App() {
-        const [click, setClick] = React.useState(0);
-        const buttonRef = React.useRef(null);
-        function handleClick() {
-          setClick(click + 1);
-        }
-
-        function resetCount() {
-          setClick(0);
-        }
-        function handleAutoClick() {
-          setInterval(() => {
-            const buttonElem = buttonRef.current;
-            if (buttonElem) {
-              buttonElem.click();
-            }
-          }, 1000);
-        }
-
-        return (
-          <div className="button-container">
-            <button ref={buttonRef} onClick={handleClick}>
-              Clicked {click} times
-            </button>
-            <button onClick={resetCount}>Reset</button>
-            <button onClick={handleAutoClick}>Auto Click</button>
-          </div>
-        );
+        return <></>;
       }
 
       const container = document.querySelector(".js-container");
